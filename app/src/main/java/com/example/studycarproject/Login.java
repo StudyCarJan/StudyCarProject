@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
+    Button btnEinloggen;
     Button btnRegistrieren;
 
 
@@ -18,6 +19,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         btnRegistrieren = (Button) findViewById(R.id.btnRegistrieren);
         btnRegistrieren.setOnClickListener(this);
+
+        btnEinloggen = (Button) findViewById(R.id.btnEinloggen);
+        btnEinloggen.setOnClickListener(this);
     }
 
     @Override
