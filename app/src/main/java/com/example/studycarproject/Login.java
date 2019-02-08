@@ -24,10 +24,25 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btnEinloggen.setOnClickListener(this);
     }
 
+
+
     @Override
     public void onClick(View v) {
-        Intent registrieren = new Intent(this,Registrierung.class);
-        startActivity(registrieren);
+        switch(view.getId()){
+
+            case R.id.btnRegistrieren
+                Intent registrieren = new Intent(this,Registrierung.class);
+                startActivity(registrieren);
+            break;
+
+            case R.id.btnEinloggen
+                Intent einloggen = new Intent(this,Startseite.class);
+                startActivity(einloggen);
+            break;
+        }
+
+
+
     }
 
 
