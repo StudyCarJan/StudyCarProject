@@ -93,5 +93,6 @@
     <string name="action_settings">Settings</string>
     <string name="bestaetigung_code">"Ihnen wurde ein Bestätigungs-Code per E-Mail zugesendet."
         "Bitte geben Sie diesen hier ein:"</string>
+    <string name="abschicken">Abschicken</string>
 
 </resources>
