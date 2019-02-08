@@ -22,7 +22,7 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Intent registrieren = new Intent(this,Registrierung.class);
+        Intent registrieren = new Intent(this,Bestaetigung.class);
         startActivity(registrieren);
 
     }
