@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Startseite"></activity>
+        <activity android:name=".FahrgemeinschaftUebersicht"></activity>
+        <activity android:name=".Startseite" />
         <activity android:name=".Bestaetigung" />
         <activity android:name=".Registrierung" />
         <activity
