@@ -95,7 +95,6 @@
         "Bitte geben Sie diesen hier ein:"</string>
     <string name="abschicken">Abschicken</string>
     <string name="fahrgemeinschaft">Fahrgemeinschaft finden</string>
-    <string name="fahrgemeinschaftText">"Nachname, Name"\n
-                                        "Start: Tauberbischofsheim; Ende: Mosbach"</string>
+    <string name="fahrgemeinschaftText">Nachname, Name\nStart: Tauberbischofsheim   Ende: Mosbach</string>
 
 </resources>
