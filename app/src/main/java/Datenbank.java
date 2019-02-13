@@ -73,6 +73,7 @@ public class Datenbank extends SQLiteOpenHelper {
         while(data.moveToNext()) {
             Nutzer nutzer = new Nutzer(data.getString(1), data.getString(2), data.getString(3), data.getString(4),
                     Integer.parseInt(data.getString(5)), data.getString(6), data.getString(7));
+            returnList.add(nutzer);
         }
         data.close();
         return returnList;
