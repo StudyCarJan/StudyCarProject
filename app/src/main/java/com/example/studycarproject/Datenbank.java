@@ -84,9 +84,9 @@ public class Datenbank extends SQLiteOpenHelper {
 
     public boolean searchforDoubles(Nutzer nutzer) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String select = "SELECT * FROM " + TABLENAME + " WHERE " + COL_VORNAME + " = " + nutzer.getVorname() +
-                                                        COL_NACHNAME + " = " + nutzer.getNachname();
-        Cursor data = db.rawQuery(select, null);
+        String select = "SELECT * FROM " + TABLENAME + " WHERE " + COL_VORNAME + "=? AND " + COL_NACHNAME + " =?";
+        select = select.trim();
+        Cursor data = db.rawQuery(select, new String[]{nutzer.getVorname(), nutzer.getNachname()});
         if (data.getCount() != 0) {
             return true;
         }

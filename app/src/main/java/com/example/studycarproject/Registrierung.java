@@ -50,15 +50,23 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
         Nutzer nutzer = new Nutzer(txtVname.getText().toString(), txtNName.getText().toString(), txtEmail.getText().toString(),
                         txtPasswortSetzen.getText().toString(), Integer.parseInt(txtPlz.getText().toString()),
                         txtOrt.getText().toString(), null);
-        boolean erfolgreich = db.insert(nutzer);
-        if (erfolgreich == true) {
-            Toast.makeText(Registrierung.this, "Erfolgreich abgespeichert!", Toast.LENGTH_LONG).show();
-            Intent registrieren = new Intent(this,Bestaetigung.class);
-            startActivity(registrieren);
-        }
-        else {
-            Toast.makeText(Registrierung.this, "Fehler beim Abspeichern!", Toast.LENGTH_LONG).show();
+
+        boolean vorhanden = db.searchforDoubles(nutzer);
+        if (vorhanden == false) {
+
+            boolean erfolgreich = db.insert(nutzer);
+            if (erfolgreich == true) {
+                Toast.makeText(Registrierung.this, "Erfolgreich abgespeichert!", Toast.LENGTH_LONG).show();
+                Intent registrieren = new Intent(this,Bestaetigung.class);
+                startActivity(registrieren);
+            }
+            else {
+                Toast.makeText(Registrierung.this, "Fehler beim Abspeichern!", Toast.LENGTH_LONG).show();
+            }
         }
 
+        else {
+            Toast.makeText(Registrierung.this, "Benutzer bereits vorhanden!", Toast.LENGTH_LONG).show();
+        }
     }
 }
