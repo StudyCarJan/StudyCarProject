@@ -53,12 +53,12 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
         boolean erfolgreich = db.insert(nutzer);
         if (erfolgreich == true) {
             Toast.makeText(Registrierung.this, "Erfolgreich abgespeichert!", Toast.LENGTH_LONG).show();
+            Intent registrieren = new Intent(this,Bestaetigung.class);
+            startActivity(registrieren);
         }
         else {
             Toast.makeText(Registrierung.this, "Fehler beim Abspeichern!", Toast.LENGTH_LONG).show();
         }
-        Intent registrieren = new Intent(this,Bestaetigung.class);
-        startActivity(registrieren);
 
     }
 }
