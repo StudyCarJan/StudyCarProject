@@ -1,3 +1,5 @@
+package com.example.studycarproject;
+
 import java.util.Random;
 
 public class Nutzer {
@@ -38,7 +40,7 @@ public class Nutzer {
         bestaetigungscode = erstelleCode();
     }
 
-    //für die Datenbank
+    //für die com.example.studycarproject.Datenbank
     public Nutzer(Integer id, String vname, String nname, String mail, String pwort, int plz, String ort, String studort, String code, String fahrgemeinschaft, String stundenplan) {
         this.nutzerId = id;
         this.vorname = vname;
