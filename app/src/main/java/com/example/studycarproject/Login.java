@@ -5,19 +5,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button btnEinloggen;
     Button btnRegistrieren;
 
+    EditText txtEmail;
+    EditText txtPasswort;
+    Datenbank db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        db = new Datenbank(this);
+
+
         btnRegistrieren = findViewById(R.id.btnRegistrieren);
         btnEinloggen = findViewById(R.id.btnEinloggen);
+
+        txtEmail = (EditText) findViewById(R.id.tfEmail);
+        txtPasswort = (EditText) findViewById(R.id.tfPasswort);
 
         btnRegistrieren.setOnClickListener(this);
         btnEinloggen.setOnClickListener(this);
@@ -35,8 +49,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             break;
 
             case R.id.btnEinloggen:
-                Intent einloggen = new Intent(this,Startseite.class);
-                startActivity(einloggen);
+
+                boolean richtig = false;
+                ArrayList<Nutzer> listNutzer = db.getDBList();
+                for (Nutzer n : listNutzer) {
+                    if (n.getEmail() == txtEmail.toString() && n.getPasswort() == txtPasswort.toString()) {
+                        richtig = true;
+                        break;
+                    }
+                }
+                if (richtig == true) {
+                    Intent einloggen = new Intent(this, Startseite.class);
+                    startActivity(einloggen);
+                }
+                else {
+                    Toast.makeText(Login.this, "Einloggen fehlgeschlagen", Toast.LENGTH_LONG).show();
+                }
             break;
         }
 
