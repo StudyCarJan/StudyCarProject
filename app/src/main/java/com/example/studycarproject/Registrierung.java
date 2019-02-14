@@ -55,7 +55,7 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
             Toast.makeText(Registrierung.this, "Erfolgreich abgespeichert!", Toast.LENGTH_LONG).show();
         }
         else {
-            Toast.makeText(Registrierung.this, "Fehler beim Abspeichern!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Registrierung.this, "Fehler beim Abspeichern!", Toast.LENGTH_LONG).show();
         }
         Intent registrieren = new Intent(this,Bestaetigung.class);
         startActivity(registrieren);
