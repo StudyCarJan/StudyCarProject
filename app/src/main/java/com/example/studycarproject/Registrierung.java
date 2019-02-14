@@ -11,6 +11,8 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
     Button btnRegistrierungAbschicken;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
