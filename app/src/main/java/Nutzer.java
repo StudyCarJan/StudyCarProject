@@ -19,6 +19,8 @@ public class Nutzer {
 
     private String bestaetigungscode;
 
+
+    //zur Erstellung
     public Nutzer(String vname, String nname, String mail, String pwort, int plz, String ort,
                   String studort) {
         vorname = vname;
@@ -36,6 +38,21 @@ public class Nutzer {
         bestaetigungscode = erstelleCode();
     }
 
+    //für die Datenbank
+    public Nutzer(Integer id, String vname, String nname, String mail, String pwort, int plz, String ort, String studort, String code, String fahrgemeinschaft, String stundenplan) {
+        this.nutzerId = id;
+        this.vorname = vname;
+        this.nachname = nname;
+        this.email = mail;
+        this.passwort = pwort;
+        this.postleitzahl = plz;
+        this.wohnort = ort;
+        this.studienort = studort;
+        this.bestaetigungscode = code;
+        //this.fahrgemeinschaft = fahrgemeinschaft;
+        //this.stundenplan = stundenplan;
+    }
+
     private String erstelleCode() {
         Random a = new Random();
         int zahl = a.nextInt(99999);
@@ -48,4 +65,16 @@ public class Nutzer {
 
         return s;
     }
+
+    public int getID() { return this.nutzerId; }
+    public String getVorname() { return this.vorname; }
+    public String getNachname() { return this.nachname; }
+    public String getEmail() { return this.email; }
+    public String getPasswort() { return this.passwort; }
+    public int getPLZ() { return this.postleitzahl; }
+    public String getWohnort() { return this.wohnort; }
+    public String getStudienort() { return this.studienort; }
+    public String getCode() { return this.bestaetigungscode; }
+    public String getFahrgemeinschaft() { return ""; }
+    public String getStundenplan() { return ""; }
 }
