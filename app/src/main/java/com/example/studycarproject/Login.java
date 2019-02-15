@@ -59,7 +59,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     if (n.getEmail().equals(txtEmail.getText().toString().trim())&& n.getPasswort().equals(txtPasswort.getText().toString().trim())) {
                         Intent einloggen = new Intent(this, Startseite.class);
                         startActivity(einloggen);
-                    } else {
+                    }
+                    else {
                         Toast.makeText(Login.this, "Login fehlgeschlagen!", Toast.LENGTH_LONG).show();
                     }
                 }

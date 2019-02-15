@@ -31,7 +31,7 @@ public class Datenbank extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTable = "CREATE TABLE " + TABLENAME + " (" + COL_ID + " INTEGER PRIMARY KEY, " +
+        String createTable = "CREATE TABLE " + TABLENAME + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                                 COL_VORNAME + " TEXT, " + COL_NACHNAME + " TEXT, " + COL_EMAIL + " TEXT, " +
                                 COL_PASSWORT + " TEXT, " + COL_PLZ + " INTEGER, " + COL_WOHNORT + " TEXT, " +
                                 COL_STUDIENORT + " TEXT, " + COL_CODE + " TEXT, " + COL_FAHRGEMEINSCHAFT + " TEXT, " +
@@ -47,7 +47,7 @@ public class Datenbank extends SQLiteOpenHelper {
     public boolean insert(Nutzer nutzer) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_ID, nutzer.getID());
+        //contentValues.put(COL_ID, nutzer.getID());
         contentValues.put(COL_VORNAME, nutzer.getVorname());
         contentValues.put(COL_NACHNAME, nutzer.getNachname());
         contentValues.put(COL_EMAIL, nutzer.getEmail());

@@ -5,7 +5,7 @@ import java.util.Random;
 public class Nutzer {
 
     private int nutzerId;
-    private static int counter = 1;
+    //private static int counter = 1;
 
     private String nachname;
     private String vorname;
@@ -33,8 +33,8 @@ public class Nutzer {
         passwort = pwort;
         studienort = studort;
 
-        nutzerId = counter;
-        counter++;
+        //nutzerId = counter;
+        //counter++;
 
         Random a = new Random();
         bestaetigungscode = erstelleCode();

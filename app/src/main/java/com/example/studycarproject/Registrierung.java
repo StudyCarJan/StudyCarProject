@@ -64,10 +64,12 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
             Toast.makeText(Registrierung.this, "Postleitzahl muss eine Zahl sein!", Toast.LENGTH_LONG).show();
             return;
         }
+        if (passwort1.equals(passwort2) == false) {
+            Toast.makeText(Registrierung.this, "Passwörter stimmen nicht überein!", Toast.LENGTH_LONG).show();
+            return;
+        }
         //Benutzer registrieren
-        Nutzer nutzer = new Nutzer(txtVname.getText().toString(), txtNName.getText().toString(), txtEmail.getText().toString(),
-                        txtPasswortSetzen.getText().toString(), Integer.parseInt(txtPlz.getText().toString()),
-                        txtOrt.getText().toString(), null);
+        Nutzer nutzer = new Nutzer(vname, nname, email, passwort1, Integer.parseInt(plz), ort, null);
 
         boolean vorhanden = db.searchforDoubles(nutzer);
         if (vorhanden == false) {
