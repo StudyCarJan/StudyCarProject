@@ -50,9 +50,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             case R.id.btnEinloggen:
 
+                if (txtPasswort.getText().toString().trim().isEmpty() == true || txtEmail.getText().toString().trim().isEmpty() == true) {
+                    Toast.makeText(Login.this, "E-Mail und Passwort müssen gefüllt sein!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 ArrayList<Nutzer> listNutzer = db.getDBList();
                 for (Nutzer n : listNutzer) {
-                    if (n.getEmail().equals(txtEmail.getText().toString())&& n.getPasswort().equals(txtPasswort.getText().toString())) {
+                    if (n.getEmail().equals(txtEmail.getText().toString().trim())&& n.getPasswort().equals(txtPasswort.getText().toString().trim())) {
                         Intent einloggen = new Intent(this, Startseite.class);
                         startActivity(einloggen);
                     } else {

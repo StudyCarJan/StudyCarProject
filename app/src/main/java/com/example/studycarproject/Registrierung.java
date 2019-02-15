@@ -46,6 +46,22 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        String vname = txtVname.getText().toString().trim();
+        String nname = txtNName.getText().toString().trim();
+        String email = txtEmail.getText().toString().trim();
+        String passwort1 = txtPasswortSetzen.getText().toString().trim();
+        String passwort2 = txtPasswortBestaetigen.getText().toString().trim();
+        String plz = txtPlz.getText().toString().trim();
+        String ort = txtOrt.getText().toString().trim();
+
+        if (vname.isEmpty() || nname.isEmpty() || email.isEmpty() || passwort1.isEmpty() || passwort2.isEmpty() || plz.isEmpty() || ort.isEmpty()) {
+            Toast.makeText(Registrierung.this, "Es müssen alle Felder ausgefüllt sein!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (!plz.matches("[0-9]+")) {
+            Toast.makeText(Registrierung.this, "Postleitzahl muss eine Zahl sein!", Toast.LENGTH_LONG).show();
+            return;
+        }
         //Benutzer registrieren
         Nutzer nutzer = new Nutzer(txtVname.getText().toString(), txtNName.getText().toString(), txtEmail.getText().toString(),
                         txtPasswortSetzen.getText().toString(), Integer.parseInt(txtPlz.getText().toString()),
@@ -62,11 +78,13 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
             }
             else {
                 Toast.makeText(Registrierung.this, "Fehler beim Abspeichern!", Toast.LENGTH_LONG).show();
+                return;
             }
         }
 
         else {
             Toast.makeText(Registrierung.this, "Benutzer bereits vorhanden!", Toast.LENGTH_LONG).show();
+            return;
         }
     }
 }
