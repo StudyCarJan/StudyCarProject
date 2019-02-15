@@ -54,10 +54,12 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
         String plz = txtPlz.getText().toString().trim();
         String ort = txtOrt.getText().toString().trim();
 
+        //Alles gefüllt?
         if (vname.isEmpty() || nname.isEmpty() || email.isEmpty() || passwort1.isEmpty() || passwort2.isEmpty() || plz.isEmpty() || ort.isEmpty()) {
             Toast.makeText(Registrierung.this, "Es müssen alle Felder ausgefüllt sein!", Toast.LENGTH_LONG).show();
             return;
         }
+        //PLZ aus Zahlen?
         if (!plz.matches("[0-9]+")) {
             Toast.makeText(Registrierung.this, "Postleitzahl muss eine Zahl sein!", Toast.LENGTH_LONG).show();
             return;
