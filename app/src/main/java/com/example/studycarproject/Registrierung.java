@@ -64,8 +64,14 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
             Toast.makeText(Registrierung.this, "Postleitzahl muss eine Zahl sein!", Toast.LENGTH_LONG).show();
             return;
         }
+        //Passwörter müssen übereinstimmen
         if (passwort1.equals(passwort2) == false) {
             Toast.makeText(Registrierung.this, "Passwörter stimmen nicht überein!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        //@-Zeichen in EMail?
+        if (email.contains("@") == false) {
+            Toast.makeText(Registrierung.this, "E-Mail muss @-Zeichen enthalten!", Toast.LENGTH_LONG).show();
             return;
         }
         //Benutzer registrieren
