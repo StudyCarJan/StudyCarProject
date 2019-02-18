@@ -9,6 +9,7 @@ import android.widget.Button;
 public class Startseite extends AppCompatActivity implements View.OnClickListener {
 
     Button btnFahrgemeinschaft;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +21,9 @@ public class Startseite extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        Intent fahrgemeinschaftFinden = new Intent(this, FahrgemeinschaftUebersicht.class);
+        Intent fahrgemeinschaftFinden = new Intent(this, MapsActivity.class);
         startActivity(fahrgemeinschaftFinden);
     }
 }
+
+
