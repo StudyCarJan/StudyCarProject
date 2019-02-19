@@ -24,6 +24,8 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
     EditText txtPasswortSetzen;
     Datenbank db;
 
+    public static Nutzer currentNutzer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,21 +77,14 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
             return;
         }
         //Benutzer registrieren
-        Nutzer nutzer = new Nutzer(vname, nname, email, passwort1, Integer.parseInt(plz), ort, null);
+        currentNutzer = new Nutzer(vname, nname, email, passwort1, Integer.parseInt(plz), ort, null);
 
-        boolean vorhanden = db.searchforDoubles(nutzer);
+        boolean vorhanden = db.searchforDoubles(currentNutzer);
         if (vorhanden == false) {
 
-            boolean erfolgreich = db.insert(nutzer);
-            if (erfolgreich == true) {
-                Toast.makeText(Registrierung.this, "Erfolgreich abgespeichert!", Toast.LENGTH_LONG).show();
-                Intent registrieren = new Intent(this,Bestaetigung.class);
-                startActivity(registrieren);
-            }
-            else {
-                Toast.makeText(Registrierung.this, "Fehler beim Abspeichern!", Toast.LENGTH_LONG).show();
-                return;
-            }
+            Intent registrieren = new Intent(Registrierung.this, Bestaetigung.class);
+            startActivity(registrieren);
+
         }
 
         else {
