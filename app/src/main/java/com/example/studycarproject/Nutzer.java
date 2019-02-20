@@ -15,9 +15,9 @@ public class Nutzer {
     private String passwort;
 
     private String studienort;
-    private Stundenplan stundenplan;
+    private int stundenplanID;
 
-    private Fahrgemeinschaft fahrgemeinschaft;
+    private int fahrgemeinschaftID;
 
     private String bestaetigungscode;
 
@@ -77,6 +77,6 @@ public class Nutzer {
     public String getWohnort() { return this.wohnort; }
     public String getStudienort() { return this.studienort; }
     public String getCode() { return this.bestaetigungscode; }
-    public String getFahrgemeinschaft() { return ""; }
-    public String getStundenplan() { return ""; }
+    public int getFahrgemeinschaft() { return this.fahrgemeinschaftID; }
+    public int getStundenplan() { return this.stundenplanID; }
 }

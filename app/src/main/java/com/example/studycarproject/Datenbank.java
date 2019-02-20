@@ -34,8 +34,8 @@ public class Datenbank extends SQLiteOpenHelper {
         String createTable = "CREATE TABLE " + TABLENAME + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                                 COL_VORNAME + " TEXT, " + COL_NACHNAME + " TEXT, " + COL_EMAIL + " TEXT, " +
                                 COL_PASSWORT + " TEXT, " + COL_PLZ + " INTEGER, " + COL_WOHNORT + " TEXT, " +
-                                COL_STUDIENORT + " TEXT, " + COL_CODE + " TEXT, " + COL_FAHRGEMEINSCHAFT + " TEXT, " +
-                                COL_STUNDENPLAN + " TEXT)";
+                                COL_STUDIENORT + " TEXT, " + COL_CODE + " TEXT, " + COL_FAHRGEMEINSCHAFT + " INTEGER, " +
+                                COL_STUNDENPLAN + " INTEGER)";
         sqLiteDatabase.execSQL(createTable);
     }
 
