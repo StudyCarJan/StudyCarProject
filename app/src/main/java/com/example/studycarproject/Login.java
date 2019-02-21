@@ -56,13 +56,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
                 ArrayList<Nutzer> listNutzer = db.getDBList();
                 for (Nutzer n : listNutzer) {
-                    if (n.getEmail().equals(txtEmail.getText().toString().trim())&& n.getPasswort().equals(txtPasswort.getText().toString().trim())) {
+                    if (n.getEmail().equals(txtEmail.getText().toString().trim())==false && n.getPasswort().equals(txtPasswort.getText().toString().trim())==false) {
+                        Toast.makeText(Login.this, "Login fehlgeschlagen!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+
                         Intent einloggen = new Intent(this, Startseite.class);
                         startActivity(einloggen);
-                    }
-                    else {
-                        Toast.makeText(Login.this, "Login fehlgeschlagen!", Toast.LENGTH_LONG).show();
-                    }
+
                 }
             break;
         }
