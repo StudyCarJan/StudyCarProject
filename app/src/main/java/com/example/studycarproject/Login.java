@@ -60,8 +60,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         Toast.makeText(Login.this, "Login fehlgeschlagen!", Toast.LENGTH_LONG).show();
                         return;
                     }
-
-
                         Intent einloggen = new Intent(this, Startseite.class);
                         startActivity(einloggen);
 
