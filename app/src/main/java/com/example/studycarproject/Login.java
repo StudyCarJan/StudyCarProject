@@ -19,8 +19,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     EditText txtPasswort;
     Datenbank db;
 
-    public static Nutzer currentUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +61,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         return;
                     }
 
-                     currentUser = n;
 
                         Intent einloggen = new Intent(this, Startseite.class);
                         startActivity(einloggen);
