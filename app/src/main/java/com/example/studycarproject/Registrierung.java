@@ -24,6 +24,14 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
     EditText txtPasswortSetzen;
     Datenbank db;
 
+    String vname;
+    String nname;
+    String email;
+    String passwort1;
+    String passwort2;
+    String plz;
+    String ort;
+
     public static Nutzer currentNutzer;
 
 
@@ -48,48 +56,54 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        String vname = txtVname.getText().toString().trim();
-        String nname = txtNName.getText().toString().trim();
-        String email = txtEmail.getText().toString().trim();
-        String passwort1 = txtPasswortSetzen.getText().toString().trim();
-        String passwort2 = txtPasswortBestaetigen.getText().toString().trim();
-        String plz = txtPlz.getText().toString().trim();
-        String ort = txtOrt.getText().toString().trim();
+        vname = txtVname.getText().toString().trim();
+        nname = txtNName.getText().toString().trim();
+        email = txtEmail.getText().toString().trim();
+        passwort1 = txtPasswortSetzen.getText().toString().trim();
+        passwort2 = txtPasswortBestaetigen.getText().toString().trim();
+        plz = txtPlz.getText().toString().trim();
+        ort = txtOrt.getText().toString().trim();
 
+        boolean check = checkData();
+        if (check == true) {
+            //Benutzer registrieren
+            currentNutzer = new Nutzer(vname, nname, email, passwort1, Integer.parseInt(plz), ort, null);
+
+            boolean vorhanden = db.searchforDoubles(currentNutzer);
+            if (vorhanden == false) {
+
+                Intent registrieren = new Intent(Registrierung.this, Bestaetigung.class);
+                startActivity(registrieren);
+
+            }
+
+            else {
+                Toast.makeText(Registrierung.this, "Benutzer bereits vorhanden!", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+    }
+    private boolean checkData() {
         //Alles gefüllt?
         if (vname.isEmpty() || nname.isEmpty() || email.isEmpty() || passwort1.isEmpty() || passwort2.isEmpty() || plz.isEmpty() || ort.isEmpty()) {
             Toast.makeText(Registrierung.this, "Es müssen alle Felder ausgefüllt sein!", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
         //PLZ aus Zahlen?
         if (!plz.matches("[0-9]+")) {
             Toast.makeText(Registrierung.this, "Postleitzahl muss eine Zahl sein!", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
         //Passwörter müssen übereinstimmen
         if (passwort1.equals(passwort2) == false) {
             Toast.makeText(Registrierung.this, "Passwörter stimmen nicht überein!", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
         //@-Zeichen in EMail?
         if (email.contains("@") == false) {
             Toast.makeText(Registrierung.this, "E-Mail muss @-Zeichen enthalten!", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
-        //Benutzer registrieren
-        currentNutzer = new Nutzer(vname, nname, email, passwort1, Integer.parseInt(plz), ort, null);
-
-        boolean vorhanden = db.searchforDoubles(currentNutzer);
-        if (vorhanden == false) {
-
-            Intent registrieren = new Intent(Registrierung.this, Bestaetigung.class);
-            startActivity(registrieren);
-
-        }
-
-        else {
-            Toast.makeText(Registrierung.this, "Benutzer bereits vorhanden!", Toast.LENGTH_LONG).show();
-            return;
-        }
+        return true;
     }
 }
