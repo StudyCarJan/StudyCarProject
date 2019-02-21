@@ -67,7 +67,7 @@ public class Registrierung extends AppCompatActivity implements View.OnClickList
         boolean check = checkData();
         if (check == true) {
             //Benutzer registrieren
-            currentNutzer = new Nutzer(vname, nname, email, passwort1, Integer.parseInt(plz), ort, null);
+            currentNutzer = new Nutzer(vname, nname, email, passwort1, Integer.parseInt(plz), ort, "Mosbach");
 
             boolean vorhanden = db.searchforDoubles(currentNutzer);
             if (vorhanden == false) {
