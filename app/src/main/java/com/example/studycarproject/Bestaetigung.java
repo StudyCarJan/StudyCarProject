@@ -39,8 +39,7 @@ public class Bestaetigung extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        if (nutzer.getCode().equals(txtCode.getText().toString().trim()) == false) {
-            Toast.makeText(Bestaetigung.this, "Code stimmt nicht überein!", Toast.LENGTH_LONG).show();
+        if (this.checkCode(nutzer) == false) {
             return;
         }
         boolean erfolgreich = db.insert(nutzer);
@@ -59,5 +58,13 @@ public class Bestaetigung extends AppCompatActivity implements View.OnClickListe
         SendMail sm = new SendMail(this, nutzer.getEmail(), "Bestätigungscode StudyCar",
                 "Für die Registrierung bei StudyCar bitte diesen Code eingeben: " + nutzer.getCode());
         sm.execute();
+    }
+
+    private boolean checkCode(Nutzer n) {
+        if (n.getCode().equals(txtCode.getText().toString().trim()) == false) {
+            Toast.makeText(Bestaetigung.this, "Code stimmt nicht überein!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }
