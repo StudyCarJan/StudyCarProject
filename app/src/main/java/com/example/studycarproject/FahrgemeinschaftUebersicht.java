@@ -4,23 +4,53 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class FahrgemeinschaftUebersicht extends AppCompatActivity {
 
     TableLayout tl;
+    JSONArray jsonTest;
+    String test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        googleAPITest();
         ArrayList<Nutzer> partnerDaten = new ArrayList<Nutzer>();
         partnerDaten = ermittleNutzer();
         super.onCreate(savedInstanceState);
@@ -35,8 +65,9 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
             TextView tv1 = new TextView(this);
-            String s1 = partner.getNachname() + ", " + partner.getVorname() + "\nWohnort:" + partner.getWohnort();
+            String s1 = partner.getNachname() + ", " + partner.getVorname() + "\nWohnort: " + partner.getWohnort();
             tv1.setText(s1);
+            tv1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
 
             tr1.addView(tv1);
 
@@ -66,7 +97,7 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
             TextView tv2 = new TextView(this);
-            tv2.setText("\n_________________________________________________________________\n");
+            tv2.setText("_________________________________________________________________\n");
 
             tr4.addView(tv2);
 
@@ -80,24 +111,24 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
     private ArrayList<Nutzer> ermittleNutzer () {
         Geocoder coder = new Geocoder(this);
         Nutzer user = Login.currentUser;
+
         Datenbank daten = new Datenbank(this);
         ArrayList<Nutzer> nutzer = daten.getDBList();
-        ArrayList<Nutzer> möglichkeiten = new ArrayList<Nutzer>();
-        ArrayList<String> fahrgemeinschaften = new ArrayList<String>();
-        String partnerDaten;
+
+        ArrayList<Nutzer> moeglichkeiten = new ArrayList<Nutzer>();
 
         int arrayIndex = 0;
 
         for (Nutzer partner : nutzer) {
             int distance = this.ermittleEntfernung(user, partner, coder);
 
-            if (distance < 10000 && distance!=0) {
-                möglichkeiten.add(arrayIndex, partner);
+            if (distance < 10000 && (user.getNachname()!=partner.getNachname() == (distance==0))) {
+                moeglichkeiten.add(arrayIndex, partner);
                 arrayIndex++;
             }
         }
 
-        return möglichkeiten;
+        return moeglichkeiten;
     }
 
     private int ermittleEntfernung(Nutzer eins, Nutzer zwei, Geocoder coder) {
@@ -125,5 +156,8 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
         int distance = (int) SphericalUtil.computeDistanceBetween(heimatOrt, partnerOrt);
 
         return distance;
+    }
+
+    public void googleAPITest() {
     }
 }
