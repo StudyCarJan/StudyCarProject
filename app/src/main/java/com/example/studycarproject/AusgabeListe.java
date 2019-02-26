@@ -46,7 +46,10 @@ public class AusgabeListe extends AppCompatActivity {
 
         /* Create a Button to be the row-content. */
         Button b = new Button(this);
-        b.setText("Dynamic Button");
+        b.setText("Karte");
+
+        Button c = new Button(this);
+        c.setText("E-Mail");
 
         //DividerItemDecoration d = new DividerItemDecoration(this,5);
         //b.setLayoutParams(new LayoutParams(
@@ -55,6 +58,7 @@ public class AusgabeListe extends AppCompatActivity {
 
         /* Add Button to row. */
         tr.addView(b);
+        tr.addView(c);
         //tr.addView(d);
 
         /* Add row to TableLayout.
