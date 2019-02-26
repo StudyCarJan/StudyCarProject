@@ -2,6 +2,8 @@ package com.example.studycarproject;
 
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.sip.SipSession;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,35 +14,27 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class FahrgemeinschaftUebersicht extends AppCompatActivity {
 
@@ -56,7 +50,7 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fahrgemeinschaft_uebersicht);
 
-        tl = (TableLayout)findViewById(R.id.myTableLayout);
+        tl = (TableLayout) findViewById(R.id.myTableLayout);
 
         for (Nutzer partner : partnerDaten) {
             TableRow tr1 = new TableRow(this);
@@ -108,7 +102,7 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
         }
     }
 
-    private ArrayList<Nutzer> ermittleNutzer () {
+    private ArrayList<Nutzer> ermittleNutzer() {
         Geocoder coder = new Geocoder(this);
         Nutzer user = Login.currentUser;
 
@@ -122,7 +116,7 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
         for (Nutzer partner : nutzer) {
             int distance = this.ermittleEntfernung(user, partner, coder);
 
-            if (distance < 10000 && (user.getNachname()!=partner.getNachname() == (distance==0))) {
+            if (distance < 10000 && (user.getNachname() != partner.getNachname() == (distance == 0))) {
                 moeglichkeiten.add(arrayIndex, partner);
                 arrayIndex++;
             }
@@ -158,6 +152,80 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
         return distance;
     }
 
-    public void googleAPITest() {
+    public int googleAPITest() {
+        String s = null, entfernung = null;
+        int dist;
+        getDirections gD = new getDirections();
+        gD = (getDirections) gD.execute();
+        try {
+            s = gD.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        JSONObject reader = null, routes = null, legs = null, distance = null;
+
+        try {
+            StringBuffer sb = new StringBuffer();
+            reader = new JSONObject(s);
+
+            sb.append(reader.getString("routes"));
+            sb.deleteCharAt(0);
+            sb.deleteCharAt(sb.length()-1);
+            routes = new JSONObject(sb.toString());
+
+            sb.delete(0, sb.length()-1);
+            sb.append(routes.getString("legs"));
+            sb.deleteCharAt(0);
+            sb.deleteCharAt(0);
+            sb.deleteCharAt(sb.length()-1);
+            legs = new JSONObject(sb.toString());
+
+            sb.delete(0, sb.length()-1);
+            sb.append(legs.getString("distance"));
+            sb.deleteCharAt(0);
+            distance = new JSONObject(sb.toString());
+
+            entfernung = distance.getString("value");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        dist = Integer.parseInt(entfernung);
+        return dist;
     }
+}
+
+class getDirections extends AsyncTask<Void, Void, String> {
+
+    @Override
+    protected String doInBackground(Void... voids) {
+        String str = "https://maps.googleapis.com/maps/api/directions/json?units=metric&origin=Grünsfeld&destination=Krensheim&key=AIzaSyCUdO8oJHfj-ldy7H1XIki-wrI6x481I7Q";
+        StringBuilder stringBuilder = new StringBuilder();
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(str);
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+            StatusLine statusLine = response.getStatusLine();
+            int statusCode = statusLine.getStatusCode();
+            if (statusCode == 200) {
+                HttpEntity entity = response.getEntity();
+                InputStream inputStream = entity.getContent();
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                inputStream.close();
+            } else {
+                Log.d("JSON", "Failed to download file");
+            }
+        } catch (Exception e) {
+            Log.d("readJSONFeed", e.getLocalizedMessage());
+        }
+        return stringBuilder.toString();
+    }
+
 }
