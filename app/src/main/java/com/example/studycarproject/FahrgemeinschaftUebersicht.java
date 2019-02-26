@@ -21,7 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FahrgemeinschaftUebersicht extends AppCompatActivity {
+public class  FahrgemeinschaftUebersicht extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

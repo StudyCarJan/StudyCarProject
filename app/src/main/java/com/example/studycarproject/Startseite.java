@@ -28,7 +28,8 @@ public class Startseite extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        Intent fahrgemeinschaftFinden = new Intent(this, FahrgemeinschaftUebersicht.class);
+        Intent fahrgemeinschaftFinden = new Intent(this,AusgabeListe.class );
+
         startActivity(fahrgemeinschaftFinden);
     }
 }

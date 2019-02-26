@@ -97,5 +97,6 @@
     <string name="fahrgemeinschaft">Fahrgemeinschaft finden</string>
     <string name="fahrgemeinschaftText">Nachname, Name\nStart: Tauberbischofsheim   Ende: Mosbach</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_ausgabe_liste">AusgabeListe</string>
 
 </resources>
