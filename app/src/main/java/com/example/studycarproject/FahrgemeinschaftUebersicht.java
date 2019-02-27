@@ -41,10 +41,10 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
     TableLayout tl;
     JSONArray jsonTest;
     String test;
+    Nutzer user = Login.currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        googleAPITest();
         ArrayList<Nutzer> partnerDaten = new ArrayList<Nutzer>();
         partnerDaten = ermittleNutzer();
         super.onCreate(savedInstanceState);
@@ -104,7 +104,6 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
 
     private ArrayList<Nutzer> ermittleNutzer() {
         Geocoder coder = new Geocoder(this);
-        Nutzer user = Login.currentUser;
 
         Datenbank daten = new Datenbank(this);
         ArrayList<Nutzer> nutzer = daten.getDBList();
@@ -114,7 +113,7 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
         int arrayIndex = 0;
 
         for (Nutzer partner : nutzer) {
-            int distance = this.ermittleEntfernung(user, partner, coder);
+            int distance = this.googleAPITest(partner);
 
             if (distance < 10000 && (user.getNachname() != partner.getNachname() == (distance == 0))) {
                 moeglichkeiten.add(arrayIndex, partner);
@@ -152,11 +151,12 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
         return distance;
     }
 
-    public int googleAPITest() {
+    public int googleAPITest(Nutzer partner) {
         String s = null, entfernung = null;
         int dist;
-        getDirections gD = new getDirections();
-        gD = (getDirections) gD.execute();
+        getDirections gD = (getDirections) new getDirections(partner, user).execute();
+        //getDirections gD = new getDirections();
+        //gD = (getDirections) gD.execute();
         try {
             s = gD.get();
         } catch (InterruptedException e) {
@@ -198,10 +198,17 @@ public class FahrgemeinschaftUebersicht extends AppCompatActivity {
 }
 
 class getDirections extends AsyncTask<Void, Void, String> {
+    Nutzer partner;
+    Nutzer user;
+
+    getDirections(Nutzer partner, Nutzer user) {
+        this.partner = partner;
+        this.user = user;
+    }
 
     @Override
-    protected String doInBackground(Void... voids) {
-        String str = "https://maps.googleapis.com/maps/api/directions/json?units=metric&origin=Grünsfeld&destination=Krensheim&key=AIzaSyCUdO8oJHfj-ldy7H1XIki-wrI6x481I7Q";
+    protected String doInBackground(Void ... voids) {
+        String str = "https://maps.googleapis.com/maps/api/directions/json?units=metric&origin=" + user.getWohnort() + "&destination=" + partner.getWohnort() + "&key=AIzaSyCUdO8oJHfj-ldy7H1XIki-wrI6x481I7Q";
         StringBuilder stringBuilder = new StringBuilder();
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(str);
@@ -227,5 +234,4 @@ class getDirections extends AsyncTask<Void, Void, String> {
         }
         return stringBuilder.toString();
     }
-
 }
