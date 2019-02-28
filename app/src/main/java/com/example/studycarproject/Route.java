@@ -1,12 +1,5 @@
 package com.example.studycarproject;
 
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class Route {
     private static int counter;
 

@@ -5,7 +5,6 @@ import java.util.Random;
 public class Nutzer {
 
     private int nutzerId;
-    //private static int counter = 1;
 
     private String nachname;
     private String vorname;
@@ -51,8 +50,6 @@ public class Nutzer {
         this.wohnort = ort;
         this.studienort = studort;
         this.bestaetigungscode = code;
-        //this.fahrgemeinschaft = fahrgemeinschaft;
-        //this.stundenplan = stundenplan;
     }
 
     private String erstelleCode() {

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -67,14 +66,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                         Intent einloggen = new Intent(this, Startseite.class);
                         startActivity(einloggen);
-
                 }
             break;
         }
-
-
-
     }
-
-
 }
