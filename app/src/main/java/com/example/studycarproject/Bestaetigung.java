@@ -1,9 +1,6 @@
 package com.example.studycarproject;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.sax.StartElementListener;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
