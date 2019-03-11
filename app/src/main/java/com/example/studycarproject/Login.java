@@ -57,7 +57,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
                 ArrayList<Nutzer> listNutzer = db.getDBList();
                 for (Nutzer n : listNutzer) {
-                    if (n.getEmail().equals(txtEmail.getText().toString().trim())==false && n.getPasswort().equals(txtPasswort.getText().toString().trim())==false) {
+                    if (n.getEmail().equals(txtEmail.getText().toString().trim())==true && n.getPasswort().equals(txtPasswort.getText().toString().trim())==true) {
                         currentUser = n;
 
                         Intent einloggen = new Intent(this, Startseite.class);
