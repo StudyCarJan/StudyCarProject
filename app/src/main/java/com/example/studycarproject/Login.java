@@ -42,6 +42,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        int fehler = 0;
         switch(v.getId()){
 
             case R.id.btnRegistrieren:
@@ -62,9 +63,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                         Intent einloggen = new Intent(this, Startseite.class);
                         startActivity(einloggen);
+                        fehler = 1;
+                        return;
                     }
                 }
-                Toast.makeText(Login.this, "Login fehlgeschlagen!", Toast.LENGTH_LONG).show();
+                if (fehler == 0) {
+                    Toast.makeText(Login.this, "Login fehlgeschlagen!", Toast.LENGTH_LONG).show();
+                }
             break;
         }
     }
